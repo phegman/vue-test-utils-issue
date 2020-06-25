@@ -1,214 +1,75 @@
-import { shallowMount } from '@vue/test-utils';
-import App from '@/App';
+import { shallowMount } from "@vue/test-utils";
+import App from "@/App";
+import { nextTick } from "vue";
 
-describe('App', () => {
-  describe('when pressing the home key', () => {
-    let wrapper; 
+describe("App", () => {
+  describe("when pressing the up key", () => {
+    let wrapper;
 
-    beforeAll(() => {
-      wrapper = shallowMount(App, {
-        sync: false
+    const runTests = () => {
+      it("should not update homePressed", () => {
+        expect(wrapper.vm.homePressed).toBe(false);
       });
 
-      wrapper.find('.keys').trigger('keydown.home');
-    });
-
-    it('should update homePressed', () => {
-      expect(wrapper.vm.homePressed).toBe(true);
-    });
-
-    it('should not update endPressed', () => {
-      expect(wrapper.vm.endPressed).toBe(false);
-    });
-
-    it('should not update upPressed', () => {
-      expect(wrapper.vm.upPressed).toBe(false);
-    });
-
-    it('should not update downPressed', () => {
-      expect(wrapper.vm.downPressed).toBe(false);
-    });
-
-    it('should not update pageUpPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(false);
-    });
-
-    it('should not update pageDownPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(false);
-    });
-  });
-
-  describe('when pressing the end key', () => {
-    let wrapper; 
-
-    beforeAll(() => {
-      wrapper = shallowMount(App);
-
-      wrapper.find('.keys').trigger('keydown.end');
-    });
-
-    it('should not update homePressed', () => {
-      expect(wrapper.vm.homePressed).toBe(false);
-    });
-
-    it('should update endPressed', () => {
-      expect(wrapper.vm.endPressed).toBe(true);
-    });
-
-    it('should not update upPressed', () => {
-      expect(wrapper.vm.upPressed).toBe(false);
-    });
-
-    it('should not update downPressed', () => {
-      expect(wrapper.vm.downPressed).toBe(false);
-    });
-
-    it('should not update pageUpPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(false);
-    });
-
-    it('should not update pageDownPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(false);
-    });
-  });
-
-  describe('when pressing the up key', () => {
-    let wrapper; 
-
-    beforeAll(() => {
-      wrapper = shallowMount(App);
-
-      wrapper.find('.keys').trigger('keydown.up');
-    });
-
-    it('should not update homePressed', () => {
-      expect(wrapper.vm.homePressed).toBe(false);
-    });
-
-    it('should not update endPressed', () => {
-      expect(wrapper.vm.endPressed).toBe(false);
-    });
-
-    it('should update upPressed', () => {
-      expect(wrapper.vm.upPressed).toBe(true);
-    });
-
-    it('should not update downPressed', () => {
-      expect(wrapper.vm.downPressed).toBe(false);
-    });
-
-    it('should not update pageUpPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(false);
-    });
-
-    it('should not update pageDownPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(false);
-    });
-  });
-
-  describe('when pressing the down key', () => {
-    let wrapper; 
-
-    beforeAll(() => {
-      wrapper = shallowMount(App);
-
-      wrapper.find('.keys').trigger('keydown.down');
-    });
-
-    it('should not update homePressed', () => {
-      expect(wrapper.vm.homePressed).toBe(false);
-    });
-
-    it('should not update endPressed', () => {
-      expect(wrapper.vm.endPressed).toBe(false);
-    });
-
-    it('should not update upPressed', () => {
-      expect(wrapper.vm.upPressed).toBe(false);
-    });
-
-    it('should update downPressed', () => {
-      expect(wrapper.vm.downPressed).toBe(true);
-    });
-
-    it('should not update pageUpPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(false);
-    });
-
-    it('should not update pageDownPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(false);
-    });
-  });
-
-  describe('when pressing the page up key', () => {
-    let wrapper; 
-
-    beforeAll(() => {
-      wrapper = shallowMount(App);
-
-      wrapper.find('.keys').trigger('keydown', {
-        keyCode: 33
+      it("should not update endPressed", () => {
+        expect(wrapper.vm.endPressed).toBe(false);
       });
-    });
 
-    it('should not update homePressed', () => {
-      expect(wrapper.vm.homePressed).toBe(false);
-    });
-
-    it('should not update endPressed', () => {
-      expect(wrapper.vm.endPressed).toBe(false);
-    });
-
-    it('should not update upPressed', () => {
-      expect(wrapper.vm.upPressed).toBe(false);
-    });
-
-    it('should not update downPressed', () => {
-      expect(wrapper.vm.downPressed).toBe(false);
-    });
-
-    it('should update pageUpPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(true);
-    });
-
-    it('should not update pageDownPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(false);
-    });
-  });
-
-  describe('when pressing the page down key', () => {
-    let wrapper; 
-
-    beforeAll(() => {
-      wrapper = shallowMount(App);
-
-      wrapper.find('.keys').trigger('keydown', {
-        keyCode: 34
+      it("should update upPressed", () => {
+        expect(wrapper.vm.upPressed).toBe(true);
       });
+
+      it("should not update downPressed", () => {
+        expect(wrapper.vm.downPressed).toBe(false);
+      });
+
+      it("should not update pageUpPressed", () => {
+        expect(wrapper.vm.pageUpPressed).toBe(false);
+      });
+
+      it("should not update pageDownPressed", () => {
+        expect(wrapper.vm.pageUpPressed).toBe(false);
+      });
+    };
+
+    describe("when using key modifier", () => {
+      beforeAll(async () => {
+        wrapper = shallowMount(App);
+
+        wrapper.find(".keys").trigger("keydown.up");
+
+        await nextTick();
+      });
+
+      runTests();
     });
 
-    it('should not update homePressed', () => {
-      expect(wrapper.vm.homePressed).toBe(false);
+    describe("when using keyCode", () => {
+      beforeAll(async () => {
+        wrapper = shallowMount(App);
+
+        wrapper.find(".keys").trigger("keydown", {
+          keyCode: 38,
+        });
+
+        await nextTick();
+      });
+
+      runTests();
     });
 
-    it('should not update endPressed', () => {
-      expect(wrapper.vm.endPressed).toBe(false);
-    });
+    describe("when using key", () => {
+      beforeAll(async () => {
+        wrapper = shallowMount(App);
 
-    it('should not update upPressed', () => {
-      expect(wrapper.vm.upPressed).toBe(false);
-    });
+        wrapper.find(".keys").trigger("keydown", {
+          key: "up",
+        });
 
-    it('should not update downPressed', () => {
-      expect(wrapper.vm.downPressed).toBe(false);
-    });
+        await nextTick();
+      });
 
-    it('should not update pageUpPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(false);
-    });
-
-    it('should update pageDownPressed', () => {
-      expect(wrapper.vm.pageUpPressed).toBe(true);
+      runTests();
     });
   });
 });

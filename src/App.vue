@@ -6,7 +6,7 @@
     <div>Down {{ downPressed }}</div>
     <div>Page Up {{ pageUpPressed }}</div>
     <div>Page Down {{ pageDownPressed }}</div>
-    <hr/>
+    <hr />
     <div
       tabindex="0"
       class="keys"
@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'app',
+  name: "app",
 
   data() {
     return {
@@ -33,7 +33,7 @@ export default {
       upPressed: false,
       downPressed: false,
       pageUpPressed: false,
-      pageDownPressed: false
+      pageDownPressed: false,
     };
   },
 
@@ -60,7 +60,7 @@ export default {
 
     onPageDownDown() {
       this.pageDownPressed = true;
-    }
-  }
-}
+    },
+  },
+};
 </script>
